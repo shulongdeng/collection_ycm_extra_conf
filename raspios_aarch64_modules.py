@@ -36,6 +36,7 @@ DIR_OF_THIS_SCRIPT = p.abspath( p.dirname( __file__ ) )
 DIR_OF_THIRD_PARTY = p.join( DIR_OF_THIS_SCRIPT, 'third_party' )
 DIR_OF_WATCHDOG_DEPS = p.join( DIR_OF_THIRD_PARTY, 'watchdog_deps' )
 SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]
+KERNEL_VERSION = subprocess.check_output(["uname","-r"]).decode('utf-8').replace('\n', '')
 
 database = None
 
@@ -61,13 +62,13 @@ flags = [
 '-nostdinc',
 '-std=gnu89',
 '-I','/usr/include/aarch64-linux-gnu',
-'-isystem','/lib/modules/5.15.32-v8+/build/include/',
-'-isystem','/lib/modules/5.15.32-v8+/build/include/uapi',
-'-isystem','/lib/modules/5.15.32-v8+/build/usr/include',
-'-isystem','/lib/modules/5.15.32-v8+/build/arch/arm64/include',
-'-isystem','/lib/modules/5.15.32-v8+/build/arch/arm64/kvm/hyp/include',
-'-include', '/lib/modules/5.15.32-v8+/build/include/linux/kconfig.h',  # IMPORTANT
-'-include', '/lib/modules/5.15.32-v8+/build/include/linux/printk.h',
+'-isystem','/lib/modules/'+KERNEL_VERSION+'/build/include/',
+'-isystem','/lib/modules/'+KERNEL_VERSION+'/build/include/uapi',
+'-isystem','/lib/modules/'+KERNEL_VERSION+'/build/usr/include',
+'-isystem','/lib/modules/'+KERNEL_VERSION+'/build/arch/arm64/include',
+'-isystem','/lib/modules/'+KERNEL_VERSION+'/build/arch/arm64/kvm/hyp/include',
+'-include', '/lib/modules/'+KERNEL_VERSION+'/build/include/linux/kconfig.h',  # IMPORTANT
+'-include', '/lib/modules/'+KERNEL_VERSION+'/build/include/linux/printk.h',
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
